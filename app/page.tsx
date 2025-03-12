@@ -1,8 +1,21 @@
-export default function Home() {
+import { AddTodoForm } from '@/app/add-todo-form';
+import { Header } from '@/app/header';
+import { TodosList } from '@/app/todos-list';
+import { stackServerApp } from '@/app/stack';
+
+export default async function Home() {
+  const user = await stackServerApp.getUser();
+
+  if (!user) {
+    return <Header />;
+  }
+
   return (
     <div className='grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]'>
+      <Header />
       <main className='flex flex-col gap-[32px] row-start-2 items-center sm:items-start'>
-        <h1>Hello, World</h1>
+        <AddTodoForm />
+        <TodosList />
       </main>
     </div>
   );
